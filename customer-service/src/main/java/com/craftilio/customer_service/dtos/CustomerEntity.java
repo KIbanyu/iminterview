@@ -1,5 +1,6 @@
 package com.craftilio.customer_service.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,8 +41,9 @@ public class CustomerEntity {
     @Column(name = "STATUS")
     private String status;
 
-    @Column(name = "PIN")
-    private String pin;
+    @JsonIgnore
+    @Column(name = "PASSWORD")
+    private String password;
 
     @Column(name = "PHYSICAL_ADDRESS")
     private String address;
@@ -62,7 +64,7 @@ public class CustomerEntity {
     private String modifiedBy;
 
     public CustomerEntity(String firstName, String lastName, String email, String gender, String phoneNumber,
-                          String idNumber, String status, String pin, String address, String county,
+                          String idNumber, String status, String password, String address, String county,
                           String createdBy, String modifiedBy) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -71,7 +73,7 @@ public class CustomerEntity {
         this.phoneNumber = phoneNumber;
         this.idNumber = idNumber;
         this.status = status;
-        this.pin = pin;
+        this.password = password;
         this.address = address;
         this.county = county;
         this.createdBy = createdBy;

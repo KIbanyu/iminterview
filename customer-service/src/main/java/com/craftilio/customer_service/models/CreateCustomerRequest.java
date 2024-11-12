@@ -12,5 +12,6 @@ public class CreateCustomerRequest {
     private String gender;
     private String county;
     private String physicalAddress;
+    private String password;
 
 }

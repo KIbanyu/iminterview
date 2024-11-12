@@ -2,14 +2,13 @@ package com.craftilio.customer_service.controllers;
 
 
 import com.craftilio.customer_service.models.CreateCustomerRequest;
+import com.craftilio.customer_service.models.LoginRequest;
 import com.craftilio.customer_service.services.CustomerService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -23,20 +22,23 @@ public class CustomerController {
         return customerService.createCustomer(request);
     }
 
-    @PostMapping("/get-all-customers")
+    @PostMapping("/customer-login")
+    private ResponseEntity<?> customerLogin(@RequestBody @Valid LoginRequest request){
+        return customerService.customerLogin(request);
+    }
+
+    @PostMapping("/update-profile")
+    private ResponseEntity<?> updateCustomerDetail(){
+        return customerService.getAllCustomers();
+    }
+
+
+
+    @GetMapping("/get-all-customers")
     private ResponseEntity<?> getAllCustomers(){
         return customerService.getAllCustomers();
     }
 
-    @GetMapping("/get-customer/{customerId}")
-    public ResponseEntity<?> getCustomerById(@PathVariable("customerId") String customerId) {
-        return customerService.getCustomerById(UUID.fromString(customerId));
-    }
-
-    @GetMapping("/get-customer/{key}/{value}")
-    public ResponseEntity<?> getCustomerByKey(@PathVariable("key") String key, @PathVariable("value") String value) {
-        return customerService.getCustomerByValue(key, value);
-    }
 
 
 }
