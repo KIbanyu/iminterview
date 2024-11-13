@@ -28,7 +28,7 @@ public class CustomerController {
         return customerService.customerLogin(request);
     }
 
-    
+
     @PostMapping("/update")
     private ResponseEntity<?> updateCustomerDetail(@RequestBody @Valid UpdateCustomerDetailsRequest request){
         return customerService.updateCustomerProfile(request);

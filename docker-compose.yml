@@ -1,12 +1,5 @@
 version: '3'
 services:
-  # discovery-service:
-  #   image: discovery-service:latest  # Your Eureka service image
-  #   build:
-  #     context: ./discovery-service  # Directory of the Eureka server project
-  #   ports:
-  #     - "8761:8761"  # Expose Eureka on port 8761
-
   customer-service:
     image: customer-service:latest  # Your customer-service image
     build:
@@ -15,49 +8,13 @@ services:
       - "8081:8081"  # Expose customer-service on port 8081
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
-    # depends_on:
-    #   - discovery-service
 
-  # account-service:
-  #   image: account-service:latest  # Your account-service image
-  #   build:
-  #     context: ./account-service  # Directory of the account service project
-  #   ports:
-  #     - "8082:8080"  # Expose account-service on port 8082
-  #   environment:
-  #     - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
-  #   depends_on:
-  #     - discovery-service
-
-  # transaction-service:
-  #   image: transaction-service:latest  # Your transaction-service image
-  #   build:
-  #     context: ./transaction-service  # Directory of the transaction service project
-  #   ports:
-  #     - "8083:8080"  # Expose transaction-service on port 8083
-  #   environment:
-  #     - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
-  #   depends_on:
-  #     - discovery-service
-
-  # notification-service:
-  #   image: notification-service:latest  # Your notification-service image
-  #   build:
-  #     context: ./notification-service  # Directory of the notification service project
-  #   ports:
-  #     - "8084:8080"  # Expose notification-service on port 8084
-  #   environment:
-  #     - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
-  #   depends_on:
-  #     - discovery-service
 
   db:
     image: postgres:15
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: postgres
+      POSTGRES_DB: post
     ports:
-      - "5433:5432"
-    volumes:
-      - ./init-db.sh:/docker-entrypoint-initdb.d/init-db.sh  
+      - "5432:5432"

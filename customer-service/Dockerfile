@@ -1,14 +1,12 @@
-# Start with an official OpenJDK runtime as a parent image
 FROM openjdk:17-jdk-slim
-
-# Set the working directory in the container
+COPY . /app
 WORKDIR /app
+RUN ./mvnw clean test -Dspring.profiles.active=test
 
-# Copy the application JAR file to the container
-COPY target/customer-service-0.0.1.jar app.jar
+RUN ./mvnw clean package -DskipTests
 
-# Expose the port that the Spring Boot application runs on
-EXPOSE 8080
+COPY target/customer-service-0.0.1.jar /customer-service.jar
 
-# Run the application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+EXPOSE 8081
+
+CMD ["java", "-Dspring.profiles.active=docker", "-jar", "/customer-service.jar"]
