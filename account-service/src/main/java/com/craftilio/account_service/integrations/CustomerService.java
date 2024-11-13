@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @FeignClient(name = "customer-service", configuration = FeignClientConfigs.class)
 public interface CustomerService {
-
     @GetMapping("customer-details/{customerId}")
     CustomerDetails getCustomerDetails(@PathVariable("customerId") UUID customerId);
 }

@@ -101,7 +101,7 @@ public class DefaultAccountService implements AccountService {
             log.error("GETTING_ACCOUNT_EXCEPTION, msg= an error occurred while closing account ", e);
             response.put("status", INTERNAL_SERVER_ERROR.value());
             response.put("message", "Exception occurred while occurred closing account ");
-            return new ResponseEntity<>(response, INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(response, OK);
         }
 
     }
@@ -114,7 +114,7 @@ public class DefaultAccountService implements AccountService {
             if (account == null) {
                 response.put("status", NOT_FOUND.value());
                 response.put("message", "Account not found");
-                return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(response, OK);
             }
 
             response.put("status", OK.value());
@@ -127,7 +127,7 @@ public class DefaultAccountService implements AccountService {
             log.error("GETTING_ACCOUNT_EXCEPTION, msg= an error while occurred getting account ", e);
             response.put("status", INTERNAL_SERVER_ERROR.value());
             response.put("message", "Exception occurred while occurred getting account ");
-            return new ResponseEntity<>(response, INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(response, OK);
         }
 
     }

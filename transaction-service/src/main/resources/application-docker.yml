@@ -1,9 +1,9 @@
 server:
-    port: 8082
+    port: 8083
 
 spring:
     application:
-        name: account-service
+        name: transaction-service
     jpa:
         properties:
             hibernate:
@@ -15,7 +15,7 @@ spring:
     datasource:
         username: user
         password: password
-        url: jdbc:postgresql://db:5432/db_account_service
+        url: jdbc:postgresql://db:5432/db_transaction_service
 
     cloud:
         openfeign:
@@ -23,6 +23,6 @@ spring:
                 config:
                     default:
                         logger-level: FULL
-                    customer-service:
-                        url: http://customer-service:8081/api/v1/customers
+                    account-service:
+                        url: http://account-service:9092/api/v1/accounts
 
