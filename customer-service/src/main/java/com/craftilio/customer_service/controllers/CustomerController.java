@@ -3,6 +3,7 @@ package com.craftilio.customer_service.controllers;
 
 import com.craftilio.customer_service.models.CreateCustomerRequest;
 import com.craftilio.customer_service.models.LoginRequest;
+import com.craftilio.customer_service.models.UpdateCustomerDetailsRequest;
 import com.craftilio.customer_service.services.CustomerService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -17,22 +18,21 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
     private final CustomerService customerService;
 
-    @PostMapping("/create-customer")
+    @PostMapping("/register")
     private ResponseEntity<?> createCustomer(@RequestBody @Valid CreateCustomerRequest request){
         return customerService.createCustomer(request);
     }
 
-    @PostMapping("/customer-login")
+    @PostMapping("/login")
     private ResponseEntity<?> customerLogin(@RequestBody @Valid LoginRequest request){
         return customerService.customerLogin(request);
     }
 
-    @PostMapping("/update-profile")
-    private ResponseEntity<?> updateCustomerDetail(){
-        return customerService.getAllCustomers();
+    
+    @PostMapping("/update")
+    private ResponseEntity<?> updateCustomerDetail(@RequestBody @Valid UpdateCustomerDetailsRequest request){
+        return customerService.updateCustomerProfile(request);
     }
-
-
 
     @GetMapping("/get-all-customers")
     private ResponseEntity<?> getAllCustomers(){
