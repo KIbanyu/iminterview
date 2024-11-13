@@ -1,5 +1,5 @@
 server:
-    port: 9091
+    port: 9092
 
 spring:
     application:
@@ -15,5 +15,14 @@ spring:
     datasource:
         username: user
         password: password
-        url: jdbc:postgresql://localhost:5433/db_customer_service
+        url: jdbc:postgresql://db:5433/db_account_service
+
+    cloud:
+        openfeign:
+            client:
+                config:
+                    default:
+                        logger-level: FULL
+                    customer-service:
+                        url: http://customer-service:5432/api/v1/customers
 

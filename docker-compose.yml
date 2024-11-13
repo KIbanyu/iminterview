@@ -1,20 +1,37 @@
 version: '3'
 services:
   customer-service:
-    image: customer-service:latest  # Your customer-service image
+    image: customer-service:latest
     build:
-      context: ./customer-service  # Directory of the customer service project
+      context: ./customer-service
     ports:
-      - "8081:8081"  # Expose customer-service on port 8081
+      - "9091:9091"
     environment:
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
+      - SPRING_PROFILES_ACTIVE=docker
+      - im-network
 
+  account-service:
+    image: account-service:latest
+    build:
+      context: ./account-service
+    ports:
+      - "5432:5432"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - im-network
 
   db:
     image: postgres:15
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: post
+      POSTGRES_DB: db_account_service
     ports:
-      - "5432:5432"
+      - "5433:5432"
+    networks:
+      - im-network
+
+networks:
+  im-network:
+    driver: bridge

@@ -12,5 +12,6 @@ public interface CustomerService {
     ResponseEntity<?> customerLogin(LoginRequest request);
     ResponseEntity<?> updateCustomerProfile(UpdateCustomerDetailsRequest request);
     ResponseEntity<?> getAllCustomers();
+    ResponseEntity<?> getCustomerById(UUID id);
 
 }

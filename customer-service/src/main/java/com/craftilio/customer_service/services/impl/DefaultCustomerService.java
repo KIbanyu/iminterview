@@ -143,5 +143,29 @@ public  class DefaultCustomerService implements CustomerService {
 
     }
 
+    @Override
+    public ResponseEntity<?> getCustomerById(UUID id) {
+        response = new HashMap<>();
+        try {
+            CustomerEntity customerEntity = customerRepo.findById(id).orElse(null);
+            if (customerEntity != null) {
+                response.put("status", HttpStatus.OK.value());
+                response.put("message", "Success");
+                response.put("data", customerEntity);
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            }
+
+            response.put("status", HttpStatus.NOT_FOUND.value());
+            response.put("message", "Customer not found");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+
+        }catch (Exception e) {
+            log.error("GETTING_CUSTOMER_EXCEPTION, msg= an error occurred while getting customer by id ", e);
+            response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+            response.put("message", "Exception occurred   while getting customer by id ");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+    }
+
 
 }

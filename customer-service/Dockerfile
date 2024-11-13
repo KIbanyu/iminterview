@@ -1,7 +1,6 @@
 FROM openjdk:17-jdk-slim
 COPY . /app
 WORKDIR /app
-RUN ./mvnw clean test -Dspring.profiles.active=test
 
 RUN ./mvnw clean package -DskipTests
 

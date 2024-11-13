@@ -1,19 +1,21 @@
 server:
-    port: 9091
+    port: 8081
 
 spring:
     application:
         name: customer-service
+
     jpa:
         properties:
             hibernate:
-                dialect: org.hibernate.dialect.PostgreSQLDialect
+                dialect: org.hibernate.dialect.H2Dialect
         hibernate:
-            ddl-auto: update
+            ddl-auto: create-drop
         show-sql: true
         generate-ddl: false
-    datasource:
-        username: user
-        password: password
-        url: jdbc:postgresql://localhost:5433/db_customer_service
 
+    datasource:
+        username: sa
+        password: password
+        url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+        driverClassName: org.h2.Driver
