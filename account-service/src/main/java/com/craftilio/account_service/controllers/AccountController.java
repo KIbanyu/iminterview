@@ -1,14 +1,16 @@
 package com.craftilio.account_service.controllers;
 
+import com.craftilio.account_service.models.AccountUpdate;
 import com.craftilio.account_service.models.CreateAccountRequest;
+import com.craftilio.account_service.models.UpdateAccountRequest;
 import com.craftilio.account_service.services.AccountService;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -30,6 +32,12 @@ public class AccountController {
     @DeleteMapping("/close/{accountNumber}")
     private ResponseEntity<?> close(@PathVariable String accountNumber){
         return accountService.closeAccount(accountNumber);
+    }
+
+    @Hidden
+    @PostMapping("/update")
+    private ResponseEntity<?> update(@RequestBody @Valid UpdateAccountRequest request){
+        return accountService.updateAccountBalance(request);
     }
 
 }

@@ -19,11 +19,9 @@ public class TransactionEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-
     @Column(name = "TRANSACTION_TYPE", columnDefinition = "VARCHAR(100)")
     @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
-
 
     @Column(name = "AMOUNT")
     private BigDecimal amount;

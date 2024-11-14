@@ -7,6 +7,7 @@ import com.craftilio.transaction_service.integration.AccountService;
 import com.craftilio.transaction_service.models.Account;
 import com.craftilio.transaction_service.models.AccountDetails;
 import com.craftilio.transaction_service.models.TransactionRequest;
+import com.craftilio.transaction_service.models.UpdateAccountRequest;
 import com.craftilio.transaction_service.repos.TransactionsRepo;
 import com.craftilio.transaction_service.services.TransactionService;
 import lombok.AllArgsConstructor;
@@ -16,11 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 @Service
 @Slf4j
@@ -47,70 +46,87 @@ public class DefaultTransactionService implements TransactionService {
 
     private ResponseEntity<?> processTransaction(TransactionRequest request, TransactionType transactionType, String successMessage) {
         try {
-            Account account = getAccountDetails(request.getAccount());
-            if (account == null) {
-                return createErrorResponse("Account not found");
-            }
+            ResponseEntity<?> getAccountResponse = getAccount(getAccountDetails(request.getAccount()));
 
+            if (getAccountResponse.getStatusCode() != OK) {
+                return getAccountResponse;
+            }
+            Account account = getAccountDetails(request.getAccount()).getAccount();
             if (transactionType == TransactionType.WITHDRAWAL && account.getBalance().compareTo(request.getAmount()) < 0) {
-                return createErrorResponse("Insufficient balance");
+                return createErrorResponse("Insufficient balance", BAD_REQUEST);
             }
 
+            UpdateAccountRequest updateAccountRequest = new UpdateAccountRequest();
+            List<Account> accounts = new ArrayList<>();
+            accounts.add(updateAccountBalance(account, transactionType, request.getAmount()));
+            updateAccountRequest.setAccountUpdates(accounts);
+            ResponseEntity<?> updateAccount =  accountService.updateAccount(updateAccountRequest);
+            if (updateAccount.getStatusCode() != OK) {
+                return createErrorResponse("Failed to update account balance", HttpStatus.valueOf(updateAccount.getStatusCode().value()));
+            }
             processTransactionEntity(request, transactionType);
-            updateAccountBalance(account, transactionType, request.getAmount());
-
             return createSuccessResponse(successMessage);
 
         } catch (Exception e) {
             log.error("Transaction exception", e);
-            return createErrorResponse("Exception occurred during transaction");
+            return createErrorResponse("Exception occurred during transaction", INTERNAL_SERVER_ERROR);
         }
     }
 
     private ResponseEntity<?> processTransfer(TransactionRequest request) {
         try {
-            Account fromAccount = getAccountDetails(request.getAccount());
-            Account toAccount = getAccountDetails(request.getToAccount());
+
+            ResponseEntity<?> getAccountResponse = getAccount(getAccountDetails(request.getAccount()));
+
+            if (getAccountResponse.getStatusCode() != OK) {
+                return getAccountResponse;
+            }
+            Account fromAccount = getAccountDetails(request.getAccount()).getAccount();
+
+            getAccountResponse = getAccount(getAccountDetails(request.getToAccount()));
+
+            if (getAccountResponse.getStatusCode() != OK) {
+                return getAccountResponse;
+            }
+
+            Account toAccount = getAccountDetails(request.getAccount()).getAccount();
 
             if (fromAccount == null || toAccount == null) {
-                return createErrorResponse("One or both accounts not found");
+                return createErrorResponse("One or both accounts not found", NOT_FOUND);
             }
 
             if (fromAccount.getBalance().compareTo(request.getAmount()) < 0) {
-                return createErrorResponse("Insufficient balance");
+                return createErrorResponse("Insufficient balance", BAD_REQUEST);
+            }
+
+
+            UpdateAccountRequest updateAccountRequest = new UpdateAccountRequest();
+            List<Account> accounts = new ArrayList<>();
+            accounts.add(updateAccountBalance(fromAccount, TransactionType.TRANSFER, request.getAmount()));
+            accounts.add(updateAccountBalance(toAccount, TransactionType.TRANSFER, request.getAmount().negate()));
+            updateAccountRequest.setAccountUpdates(accounts);
+            ResponseEntity<?> updateAccount =  accountService.updateAccount(updateAccountRequest);
+            if (updateAccount.getStatusCode() != OK) {
+                return createErrorResponse("Failed to update account balance", HttpStatus.valueOf(updateAccount.getStatusCode().value()));
             }
 
             processTransactionEntity(request, TransactionType.TRANSFER);
-            updateAccountBalance(fromAccount, TransactionType.TRANSFER, request.getAmount());
-            updateAccountBalance(toAccount, TransactionType.TRANSFER, request.getAmount().negate());
             return createSuccessResponse("Transfer successful");
 
         } catch (Exception e) {
             log.error("Transfer exception", e);
-            return createErrorResponse("Exception occurred during transfer");
+            return createErrorResponse("Exception occurred during transfer", INTERNAL_SERVER_ERROR);
         }
     }
 
-    private Account getAccountDetails(String accountId) {
+    private AccountDetails getAccountDetails(String accountId) {
+      return accountService.getAccountDetails(accountId);
 
-        if (getAccount(accountId).getStatusCode().equals(HttpStatus.OK)) {
-            
-        }
-
-
-
-
-        return (Account) getAccount(accountId).getBody();
     }
 
-    public ResponseEntity<?> getAccount(String accountId) {
+    public ResponseEntity<?> getAccount(AccountDetails accountDetails) {
 
         Map<String, Object> response = new HashMap<>();
-        AccountDetails accountDetails = accountService.getAccountDetails(accountId);
-
-        log.info("GETTING_ACCOUNT msg=response {}", accountDetails.getStatus());
-
-
         if (accountDetails.getStatus() != 200){
             response.put("status",accountDetails.getStatus());
             response.put("message", accountDetails.getMessage());
@@ -119,40 +135,51 @@ public class DefaultTransactionService implements TransactionService {
 
         if (!accountDetails.getAccount().getStatus().equalsIgnoreCase(EntityStatus.ACTIVE.toString())) {
             response.put("status", BAD_REQUEST.value());
-            response.put("message", "Invalid account status " + accountDetails.getAccount().getStatus() + " for account " + accountId);
+            response.put("message", "Invalid account status " + accountDetails.getAccount().getStatus());
             return new ResponseEntity<>(response, BAD_REQUEST);
         }
 
-        return new ResponseEntity<>(accountDetails.getAccount(), OK);
+        return new ResponseEntity<>(accountDetails, OK);
     }
 
     private void processTransactionEntity(TransactionRequest request, TransactionType transactionType) {
         TransactionEntity transaction = new TransactionEntity();
         transaction.setTransactionType(transactionType);
         transaction.setAmount(request.getAmount());
+        transaction.setNarration(request.getNarration());
         transaction.setStatus(EntityStatus.SUCCESSFUL);
-        if (transactionType == TransactionType.DEPOSIT || transactionType == TransactionType.TRANSFER) {
-            transaction.setToAccountId(request.getAccount());
-        } else {
+        transaction.setModifiedOn(new Date());
+
+        if (transactionType == TransactionType.TRANSFER) {
+            transaction.setFromAccountId(request.getAccount());
+            transaction.setToAccountId(request.getToAccount());
+        }
+
+        if (transactionType == TransactionType.WITHDRAWAL) {
             transaction.setFromAccountId(request.getAccount());
         }
+
+        if (transactionType == TransactionType.DEPOSIT) {
+            transaction.setToAccountId(request.getAccount());
+        }
+
         transactionsRepo.save(transaction);
     }
 
-    private void updateAccountBalance(Account account, TransactionType transactionType, BigDecimal amount) {
+    private Account updateAccountBalance(Account account, TransactionType transactionType, BigDecimal amount) {
         if (transactionType == TransactionType.DEPOSIT || transactionType == TransactionType.TRANSFER) {
             account.setBalance(account.getBalance().add(amount));
         } else if (transactionType == TransactionType.WITHDRAWAL) {
             account.setBalance(account.getBalance().subtract(amount));
         }
-        accountService.updateAccount(account);
+        return account;
     }
 
-    private ResponseEntity<?> createErrorResponse(String message) {
+    private ResponseEntity<?> createErrorResponse(String message, HttpStatus status) {
         Map<String, Object> response = new HashMap<>();
-        response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        response.put("status", status.value());
         response.put("message", message);
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(response, status);
     }
 
     private ResponseEntity<?> createSuccessResponse(String message) {

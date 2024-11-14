@@ -2,12 +2,13 @@ package com.craftilio.account_service.services.impl;
 
 import com.craftilio.account_service.dto.Accounts;
 import com.craftilio.account_service.integrations.CustomerService;
+import com.craftilio.account_service.models.AccountUpdate;
 import com.craftilio.account_service.models.CreateAccountRequest;
 import com.craftilio.account_service.models.CustomerDetails;
+import com.craftilio.account_service.models.UpdateAccountRequest;
 import com.craftilio.account_service.repos.AccountRepo;
 import com.craftilio.account_service.services.AccountService;
-import com.craftilio.account_service.utils.AppUtils;
-import jakarta.persistence.Column;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.UUID;
+
 
 import static com.craftilio.account_service.utils.AppUtils.generateAccountNumber;
 import static org.springframework.http.HttpStatus.*;
@@ -74,6 +75,7 @@ public class DefaultAccountService implements AccountService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<?> closeAccount(String accountNumber) {
 
         try {
@@ -83,7 +85,7 @@ public class DefaultAccountService implements AccountService {
             }
             response.clear();
             response = new HashMap<>();
-            Accounts account = accountRepo.getByAccountNumber(accountNumber);
+            Accounts account = getAccountWithLock(accountNumber);
 
             if (account.getStatus().equalsIgnoreCase("CLOSED")) {
                 response.put("status", OK.value());
@@ -107,10 +109,11 @@ public class DefaultAccountService implements AccountService {
     }
 
     @Override
+    @Transactional
     public ResponseEntity<?> getAccount(String accountNumber) {
         response = new HashMap<>();
         try {
-            Accounts account = accountRepo.findByAccountNumber(accountNumber).orElse(null);
+            Accounts account = getAccountWithLock(accountNumber);
             if (account == null) {
                 response.put("status", NOT_FOUND.value());
                 response.put("message", "Account not found");
@@ -130,5 +133,33 @@ public class DefaultAccountService implements AccountService {
             return new ResponseEntity<>(response, OK);
         }
 
+    }
+
+    @Override
+    @Transactional
+    public ResponseEntity<?> updateAccountBalance(UpdateAccountRequest request) {
+        response = new HashMap<>();
+        log.info("ACCOUNT_UPDATE, msg= Incoming request for account balance update [{}]", request);
+        try {
+            for (AccountUpdate accountUpdate : request.getAccountUpdates()) {
+                Accounts account = getAccountWithLock(accountUpdate.getAccountNumber());
+                account.setBalance(accountUpdate.getBalance());
+                accountRepo.save(account);
+            }
+            response.put("status", OK.value());
+            response.put("message", "Account balance updated");
+            return new ResponseEntity<>(response, OK);
+
+        }catch (Exception e) {
+            log.error("UPDATING_ACCOUNT_EXCEPTION, msg= an error occurred while updating account ", e);
+            response.put("status", INTERNAL_SERVER_ERROR.value());
+            response.put("message", "Exception occurred while updating account ");
+            return new ResponseEntity<>(response, OK);
+        }
+
+    }
+
+    public Accounts getAccountWithLock(String accountNumber) {
+        return accountRepo.findAccountForUpdate(accountNumber);
     }
 }

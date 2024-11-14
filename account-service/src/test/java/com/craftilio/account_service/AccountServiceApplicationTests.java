@@ -43,7 +43,6 @@ class AccountServiceApplicationTests {
 	@BeforeEach
 	public void setUp() {
 		customerId = UUID.randomUUID();
-		// Mock customer existence check
 		CustomerDetails.Customer customer = CustomerDetails.Customer.builder().firstName("John").lastName("Doe").status("ACTIVE").build();
 		when(customerService.getCustomerDetails(customerId)).thenReturn(CustomerDetails.builder().status(200).message("Success").data(customer).build()); // Mock that customer exists
 	}
