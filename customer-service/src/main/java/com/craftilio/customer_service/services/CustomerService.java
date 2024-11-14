@@ -8,10 +8,9 @@ import org.springframework.http.ResponseEntity;
 import java.util.UUID;
 
 public interface CustomerService {
-    ResponseEntity<?> createCustomer(CreateCustomerRequest request);
-    ResponseEntity<?> customerLogin(LoginRequest request);
-    ResponseEntity<?> updateCustomerProfile(UpdateCustomerDetailsRequest request);
-    ResponseEntity<?> getAllCustomers();
-    ResponseEntity<?> getCustomerById(UUID id);
+    ResponseEntity<?> register(CreateCustomerRequest request);
+    ResponseEntity<?> login(LoginRequest request);
+    ResponseEntity<?> update(UpdateCustomerDetailsRequest request);
+
 
 }

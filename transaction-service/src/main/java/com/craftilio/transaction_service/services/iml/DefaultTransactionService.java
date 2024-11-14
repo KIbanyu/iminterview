@@ -4,14 +4,12 @@ import com.craftilio.transaction_service.dtos.TransactionEntity;
 import com.craftilio.transaction_service.enums.EntityStatus;
 import com.craftilio.transaction_service.enums.TransactionType;
 import com.craftilio.transaction_service.integration.AccountService;
-import com.craftilio.transaction_service.models.Account;
-import com.craftilio.transaction_service.models.AccountDetails;
-import com.craftilio.transaction_service.models.TransactionRequest;
-import com.craftilio.transaction_service.models.UpdateAccountRequest;
+import com.craftilio.transaction_service.models.*;
 import com.craftilio.transaction_service.repos.TransactionsRepo;
 import com.craftilio.transaction_service.services.TransactionService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -28,6 +26,7 @@ public class DefaultTransactionService implements TransactionService {
 
     private final TransactionsRepo transactionsRepo;
     private final AccountService accountService;
+    private final KafkaService kafkaService;
 
     @Override
     public ResponseEntity<?> deposit(TransactionRequest request) {
@@ -58,19 +57,36 @@ public class DefaultTransactionService implements TransactionService {
 
             UpdateAccountRequest updateAccountRequest = new UpdateAccountRequest();
             List<Account> accounts = new ArrayList<>();
-            accounts.add(updateAccountBalance(account, transactionType, request.getAmount()));
+            updateAccountBalance(account, transactionType, request.getAmount());
+            accounts.add(account);
             updateAccountRequest.setAccountUpdates(accounts);
             ResponseEntity<?> updateAccount =  accountService.updateAccount(updateAccountRequest);
             if (updateAccount.getStatusCode() != OK) {
                 return createErrorResponse("Failed to update account balance", HttpStatus.valueOf(updateAccount.getStatusCode().value()));
             }
             processTransactionEntity(request, transactionType);
+
+            String message = "You have successfully deposited KSH " + request.getAmount() + " in your account " + maskAccountNumber(account.getAccountNumber()) + " your new balance is KSH "  + account.getBalance();
+            if (transactionType == TransactionType.WITHDRAWAL) {
+                message = "You have successfully withdrawn KSH " + request.getAmount() + " from your account " + maskAccountNumber(account.getAccountNumber()) + " your new balance is KSH "  + account.getBalance();
+            }
+            kafkaService.sendToTransactionalTopic(Notification.builder().type("SMS").message(message).recipient("").build());
             return createSuccessResponse(successMessage);
 
         } catch (Exception e) {
             log.error("Transaction exception", e);
             return createErrorResponse("Exception occurred during transaction", INTERNAL_SERVER_ERROR);
         }
+    }
+
+    public String maskAccountNumber(String accountNumber) {
+        if (accountNumber.length() < 8) {
+            throw new IllegalArgumentException("Account number is too short to mask central characters.");
+        }
+        int start = (accountNumber.length() - 4) / 2;
+        int end = start + 4;
+        return "%sXXXX%s".formatted(accountNumber.substring(0, start), accountNumber.substring(end));
+
     }
 
     private ResponseEntity<?> processTransfer(TransactionRequest request) {
@@ -163,7 +179,9 @@ public class DefaultTransactionService implements TransactionService {
             transaction.setToAccountId(request.getAccount());
         }
 
+
         transactionsRepo.save(transaction);
+
     }
 
     private Account updateAccountBalance(Account account, TransactionType transactionType, BigDecimal amount) {

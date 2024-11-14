@@ -1,41 +1,41 @@
 version: '3'
 services:
-  customer-service:
-    image: customer-service:latest
-    build:
-      context: ./customer-service
-    ports:
-      - "8081:8081"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - im-network
-    networks:
-      - im-network
+  # customer-service:
+  #   image: customer-service:latest
+  #   build:
+  #     context: ./customer-service
+  #   ports:
+  #     - "8081:8081"
+  #   environment:
+  #     - SPRING_PROFILES_ACTIVE=docker
+  #     - im-network
+  #   networks:
+  #     - im-network
 
-  account-service:
-    image: account-service:latest
-    build:
-      context: ./account-service
-    ports:
-      - "8082:8082"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - im-network
+  # account-service:
+  #   image: account-service:latest
+  #   build:
+  #     context: ./account-service
+  #   ports:
+  #     - "8082:8082"
+  #   environment:
+  #     - SPRING_PROFILES_ACTIVE=docker
+  #   networks:
+  #     - im-network
 
-  transaction-service:
-    image: account-transaction:latest
-    build:
-      context: ./transaction-service
-    ports:
-      - "8083:8083"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - im-network
+  # transaction-service:
+  #   image: transaction-service:latest
+  #   build:
+  #     context: ./transaction-service
+  #   ports:
+  #     - "8083:8083"
+  #   environment:
+  #     - SPRING_PROFILES_ACTIVE=docker
+  #   networks:
+  #     - im-network
 
   notification-service:
-    image: notification-transaction:latest
+    image: notification-service:latest
     build:
       context: ./notification-service
     ports:
@@ -61,30 +61,6 @@ services:
     image: wurstmeister/zookeeper:3.4.6
     ports:
       - "2181:2181"
-    networks:
-      - im-network
-
-  # Kafka service
-  kafka:
-    image: wurstmeister/kafka:latest
-    environment:
-      KAFKA_ADVERTISED_LISTENER: INSIDE_KAFKA:9093
-      KAFKA_LISTENER_SECURITY_PROTOCOL: PLAINTEXT
-      KAFKA_LISTENER_NAMES: INSIDE_KAFKA
-      KAFKA_LISTENER_PORT: 9093
-      KAFKA_LISTENER_INTERNAL_PORT: 9093
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENER_INTERNAL: INSIDE_KAFKA://kafka:9093
-      KAFKA_LISTENER_EXTERNAL: OUTSIDE_KAFKA://localhost:9092
-      KAFKA_LISTENER_NAME_EXPOSED: OUTSIDE_KAFKA
-      KAFKA_ADVERTISED_LISTENER: OUTSIDE_KAFKA://localhost:9092
-      KAFKA_LISTENER_SECURITY_PROTOCOL: PLAINTEXT
-      KAFKA_LISTENER_PORT: 9092
-      KAFKA_LISTENER_NAME: OUTSIDE_KAFKA
-    ports:
-      - "9092:9092"  # Exposing Kafka port
-    depends_on:
-      - zookeeper
     networks:
       - im-network
 

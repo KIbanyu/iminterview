@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.craftilio</groupId>
 	<artifactId>notification-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>notification-service</name>
 	<description>I&amp;M Interview Task Notification Service</description>
 
@@ -38,6 +38,18 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.18.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

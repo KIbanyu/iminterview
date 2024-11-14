@@ -28,7 +28,6 @@ import static org.mockito.Mockito.when;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @Transactional
-
 class AccountServiceApplicationTests {
 
 	@Autowired
@@ -36,8 +35,10 @@ class AccountServiceApplicationTests {
 
 	@Autowired
 	private  AccountRepo accountRepository;
+
 	@MockBean
 	private CustomerService customerService;
+
 	private UUID customerId;
 
 	@BeforeEach

@@ -21,32 +21,20 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @PostMapping("/register")
-    private ResponseEntity<?> createCustomer(@RequestBody @Valid CreateCustomerRequest request){
-        return customerService.createCustomer(request);
+    private ResponseEntity<?> register(@RequestBody @Valid CreateCustomerRequest request){
+        return customerService.register(request);
     }
 
     @PostMapping("/login")
-    private ResponseEntity<?> customerLogin(@RequestBody @Valid LoginRequest request){
-        return customerService.customerLogin(request);
+    private ResponseEntity<?> login(@RequestBody @Valid LoginRequest request){
+        return customerService.login(request);
     }
 
 
-    @PostMapping("/update")
-    private ResponseEntity<?> updateCustomerDetail(@RequestBody @Valid UpdateCustomerDetailsRequest request){
-        return customerService.updateCustomerProfile(request);
+    @PutMapping("/update")
+    private ResponseEntity<?> update(@RequestBody @Valid UpdateCustomerDetailsRequest request){
+        return customerService.update(request);
     }
-
-    @GetMapping("/get-all-customers")
-    private ResponseEntity<?> getAllCustomers(){
-        return customerService.getAllCustomers();
-    }
-
-    @GetMapping("/customer-details/{customerId}")
-    private ResponseEntity<?> customerDetails(@PathVariable UUID customerId){
-        return customerService.getCustomerById(customerId);
-    }
-
-
 
 
 }

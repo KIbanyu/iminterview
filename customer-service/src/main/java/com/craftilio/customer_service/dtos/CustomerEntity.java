@@ -1,5 +1,6 @@
 package com.craftilio.customer_service.dtos;
 
+import com.craftilio.customer_service.enums.EntityStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -38,8 +39,10 @@ public class CustomerEntity {
     @Column(name = "ID_NUMBER")
     private String idNumber;
 
-    @Column(name = "STATUS")
-    private String status;
+
+    @Column(name = "STATUS", columnDefinition = "VARCHAR(100)")
+    @Enumerated(EnumType.STRING)
+    private EntityStatus status;
 
     @JsonIgnore
     @Column(name = "PASSWORD")
@@ -64,7 +67,7 @@ public class CustomerEntity {
     private String modifiedBy;
 
     public CustomerEntity(String firstName, String lastName, String email, String gender, String phoneNumber,
-                          String idNumber, String status, String password, String address, String county,
+                          String idNumber, EntityStatus status, String password, String address, String county,
                           String createdBy, String modifiedBy) {
         this.firstName = firstName;
         this.lastName = lastName;

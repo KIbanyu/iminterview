@@ -1,8 +1,10 @@
 package com.craftilio.customer_service.models;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class CreateCustomerRequest {
     private String firstName;
     private String lastName;

@@ -1,10 +1,13 @@
 package com.craftilio.customer_service.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.UUID;
 
 @Data
+@Builder
 public class UpdateCustomerDetailsRequest {
     private UUID customerId;
     private String county;

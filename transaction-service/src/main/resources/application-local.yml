@@ -1,5 +1,5 @@
 server:
-    port: 9093
+    port: 9089
 
 spring:
     application:
@@ -24,5 +24,11 @@ spring:
                     default:
                         logger-level: FULL
                     account-service:
-                        url: http://localhost:9092/api/v1/accounts
+                        url: http://localhost:9095/api/v1/accounts
+    kafka:
+        producer:
+            bootstrap-servers: localhost:9092
+            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+            value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
 
