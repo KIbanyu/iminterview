@@ -2,9 +2,11 @@ package com.craftilio.customer_service.controllers;
 
 
 import com.craftilio.customer_service.models.CreateCustomerRequest;
+import com.craftilio.customer_service.models.CustomerDetails;
 import com.craftilio.customer_service.models.LoginRequest;
 import com.craftilio.customer_service.models.UpdateCustomerDetailsRequest;
 import com.craftilio.customer_service.services.CustomerService;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,5 +38,10 @@ public class CustomerController {
         return customerService.update(request);
     }
 
+    @Hidden
+    @GetMapping("/customer-details/{customerId}")
+    private CustomerDetails getCustomerDetails(@PathVariable("customerId") UUID customerId){
+        return customerService.getCustomerDetails(customerId);
+    }
 
 }

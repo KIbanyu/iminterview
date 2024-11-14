@@ -1,6 +1,5 @@
 package com.craftilio.account_service.controllers;
 
-import com.craftilio.account_service.models.AccountUpdate;
 import com.craftilio.account_service.models.CreateAccountRequest;
 import com.craftilio.account_service.models.UpdateAccountRequest;
 import com.craftilio.account_service.services.AccountService;
@@ -29,7 +28,7 @@ public class AccountController {
         return accountService.getAccount(accountNumber);
     }
 
-    @DeleteMapping("/close/{accountNumber}")
+    @PutMapping("/close/{accountNumber}")
     private ResponseEntity<?> close(@PathVariable String accountNumber){
         return accountService.closeAccount(accountNumber);
     }

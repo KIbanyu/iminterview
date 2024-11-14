@@ -3,6 +3,7 @@ package com.craftilio.customer_service.services.impl;
 import com.craftilio.customer_service.dtos.CustomerEntity;
 import com.craftilio.customer_service.enums.EntityStatus;
 import com.craftilio.customer_service.models.CreateCustomerRequest;
+import com.craftilio.customer_service.models.CustomerDetails;
 import com.craftilio.customer_service.models.LoginRequest;
 import com.craftilio.customer_service.models.UpdateCustomerDetailsRequest;
 import com.craftilio.customer_service.repos.CustomerRepo;
@@ -31,7 +32,7 @@ public  class DefaultCustomerService implements CustomerService {
         Map<String, Object> response = new HashMap<>();
         try {
             // Check if phone number is already registered
-            if (customerRepo.findByPhoneNumber(request.getPhoneNumber()).isEmpty()) {
+            if (customerRepo.findByPhoneNumber(request.getPhoneNumber()).isPresent()) {
                 response.put("status", HttpStatus.CONFLICT.value());
                 response.put("message", "Phone number already in use");
                 return new ResponseEntity<>(response, HttpStatus.CONFLICT);
@@ -48,8 +49,7 @@ public  class DefaultCustomerService implements CustomerService {
                     request.getFirstName(), request.getLastName(), request.getEmail(),
                     request.getGender(), request.getPhoneNumber(), request.getIdNumber(),
                     EntityStatus.ACTIVE, request.getPassword(), request.getPhysicalAddress(),
-                    request.getCounty(), "", ""
-            );
+                    request.getCounty());
             customerEntity.setModifiedOn(new Date());
             customerRepo.save(customerEntity);
 
@@ -121,6 +121,26 @@ public  class DefaultCustomerService implements CustomerService {
             response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.put("message", "Exception occurred while updating customer details");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public CustomerDetails getCustomerDetails(UUID customerId) {
+
+        try {
+            CustomerEntity customerEntity = customerRepo.findById(customerId).orElse(null);
+            if (customerEntity == null) {
+               return CustomerDetails.builder().status(404).message("Customer not found").build();
+            }
+            return CustomerDetails.builder().status(200).message("Customer found").
+                    data(CustomerDetails.Customer.builder()
+                            .firstName(customerEntity.getFirstName())
+                            .lastName(customerEntity.getLastName())
+                            .status(customerEntity.getStatus().name())
+                            .build()).build();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while getting customer details", e);
         }
     }
 

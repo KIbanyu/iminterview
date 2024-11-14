@@ -2,10 +2,7 @@ package com.craftilio.account_service.services.impl;
 
 import com.craftilio.account_service.dto.Accounts;
 import com.craftilio.account_service.integrations.CustomerService;
-import com.craftilio.account_service.models.AccountUpdate;
-import com.craftilio.account_service.models.CreateAccountRequest;
-import com.craftilio.account_service.models.CustomerDetails;
-import com.craftilio.account_service.models.UpdateAccountRequest;
+import com.craftilio.account_service.models.*;
 import com.craftilio.account_service.repos.AccountRepo;
 import com.craftilio.account_service.services.AccountService;
 import jakarta.transaction.Transactional;
@@ -30,6 +27,8 @@ public class DefaultAccountService implements AccountService {
     private final CustomerService customerService;
     private HashMap<String, Object> response;
     private final AccountRepo accountRepo;
+    private final KafkaService kafkaService;
+
     @Override
     public ResponseEntity<?> createAccount(CreateAccountRequest request) {
         response = new HashMap<>();
@@ -55,14 +54,20 @@ public class DefaultAccountService implements AccountService {
             accounts.setAccountType(request.getAccountType());
             accounts.setBalance(BigDecimal.ZERO);
             accounts.setCustomerId(request.getCustomerId());
-            accounts.setStatus("PENDING");
+            accounts.setStatus("ACTIVE");
             accounts.setModifiedOn(new Date());
-            accounts.setModifiedBy("Test User");
-            accounts.setCreatedBy("Test User");
             accounts.setComment("New Account");
             accountRepo.save(accounts);
             response.put("status", HttpStatus.OK.value());
             response.put("message", "Account created");
+
+            String message  = "Dear customer,"
+                    + " you have successfully open a new account, your account details are " +
+                    " ACCOUNT NAME " + customerDetails.getData().getFirstName() + " " +  customerDetails.getData().getLastName()
+                    + "ACCOUNT NUMBER " + accounts.getAccountNumber();
+            kafkaService.sendToTransactionalTopic(Notification.builder().type("EMAIL").message(message).recipient("").build());
+
+
             return new ResponseEntity<>(response, HttpStatus.OK);
 
         }catch (Exception e) {
@@ -97,6 +102,10 @@ public class DefaultAccountService implements AccountService {
             accountRepo.save(account);
             response.put("status", OK.value());
             response.put("message", "Account closed successfully");
+
+            String message  = "Dear customer, you have successfully closed the account " + account.getAccountNumber();
+            kafkaService.sendToTransactionalTopic(Notification.builder().type("SMS").message(message).recipient("").build());
+
             return new ResponseEntity<>(response, OK);
 
         }catch (Exception e) {

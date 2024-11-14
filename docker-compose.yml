@@ -1,27 +1,23 @@
 version: '3'
 services:
+
   # customer-service:
   #   image: customer-service:latest
   #   build:
   #     context: ./customer-service
   #   ports:
-  #     - "8081:8081"
-  #   environment:
-  #     - SPRING_PROFILES_ACTIVE=docker
-  #     - im-network
+  #     - "8081:8080"
   #   networks:
   #     - im-network
 
-  # account-service:
-  #   image: account-service:latest
-  #   build:
-  #     context: ./account-service
-  #   ports:
-  #     - "8082:8082"
-  #   environment:
-  #     - SPRING_PROFILES_ACTIVE=docker
-  #   networks:
-  #     - im-network
+  account-service:
+    image: account-service:latest
+    build:
+      context: ./account-service
+    ports:
+      - "8082:8082"
+    networks:
+      - im-network
 
   # transaction-service:
   #   image: transaction-service:latest
@@ -29,41 +25,48 @@ services:
   #     context: ./transaction-service
   #   ports:
   #     - "8083:8083"
-  #   environment:
-  #     - SPRING_PROFILES_ACTIVE=docker
   #   networks:
   #     - im-network
 
-  notification-service:
-    image: notification-service:latest
-    build:
-      context: ./notification-service
-    ports:
-      - "8084:8084"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - im-network
+  # notification-service:
+  #   image: notification-service:latest
+  #   build:
+  #     context: ./notification-service
+  #   ports:
+  #     - "8084:8084"
+  #   networks:
+  #     - im-network
 
-  db:
-    image: postgres:15
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: db_im_interview
-    ports:
-      - "5433:5432"
-    networks:
-      - im-network
+  # db:
+  #   image: postgres:15
+  #   environment:
+  #     POSTGRES_USER: user
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: db_im_interview
+  #   ports:
+  #     - "5433:5432"
+  #   networks:
+  #     - im-network
 
-  # Zookeeper service
-  zookeeper:
-    image: wurstmeister/zookeeper:3.4.6
-    ports:
-      - "2181:2181"
-    networks:
-      - im-network
-
+  # kafka:
+  #   image: docker.io/bitnami/kafka:3.5.0
+  #   ports:
+  #     - "9092:9092"
+  #     - "29092:29092"
+  #     - "9093:9093"
+  #   volumes:
+  #     - "./kafka_data:/bitnami"
+  #   restart: always
+  #   environment:
+  #     - KAFKA_CFG_NODE_ID=1
+  #     - KAFKA_CFG_PROCESS_ROLES=controller,broker
+  #     - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
+  #     - ALLOW_PLAINTEXT_LISTENER=yes
+  #     - KAFKA_CFG_LISTENERS=PLAINTEXT://:29092,CONTROLLER://:9093,EXTERNAL://:9092
+  #     - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:29092,EXTERNAL://localhost:9092
+  #     - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+  #   networks:
+  #     - im-network      
 networks:
   im-network:
     driver: bridge

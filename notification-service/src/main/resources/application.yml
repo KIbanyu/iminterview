@@ -2,7 +2,7 @@ spring:
     application:
         name: notification-service
 server:
-    port: 9098
+    port: 1004
     kafka:
         producer:
             bootstrap-servers: localhost:9092

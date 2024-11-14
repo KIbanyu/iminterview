@@ -8,6 +8,7 @@ import com.craftilio.transaction_service.models.TransactionRequest;
 import com.craftilio.transaction_service.models.UpdateAccountRequest;
 import com.craftilio.transaction_service.repos.TransactionsRepo;
 import com.craftilio.transaction_service.services.iml.DefaultTransactionService;
+import com.craftilio.transaction_service.services.iml.KafkaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -33,6 +34,9 @@ class TransactionServiceApplicationTests {
 	private TransactionsRepo transactionsRepo;
 
 	@Mock
+	private KafkaService kafkaService;
+
+	@Mock
 	private AccountService accountService;
 
 	@InjectMocks
@@ -54,8 +58,8 @@ class TransactionServiceApplicationTests {
 		updateAccountRequest.setAccountUpdates(List.of(account));
 
 		MockitoAnnotations.openMocks(this);
-		transactionService = new DefaultTransactionService(transactionsRepo, accountService);
-		transactionService = new DefaultTransactionService(transactionsRepo, accountService);
+		transactionService = new DefaultTransactionService(transactionsRepo, accountService,kafkaService);
+		transactionService = new DefaultTransactionService(transactionsRepo, accountService,kafkaService);
 
 	}
 

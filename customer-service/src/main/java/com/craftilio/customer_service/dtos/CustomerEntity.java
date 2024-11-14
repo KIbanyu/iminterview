@@ -60,15 +60,10 @@ public class CustomerEntity {
     @Column(name = "MODIFIED_ON")
     private Date modifiedOn;
 
-    @Column(name = "CREATED_BY")
-    private String createdBy;
 
-    @Column(name = "MODIFIED_BY")
-    private String modifiedBy;
 
     public CustomerEntity(String firstName, String lastName, String email, String gender, String phoneNumber,
-                          String idNumber, EntityStatus status, String password, String address, String county,
-                          String createdBy, String modifiedBy) {
+                          String idNumber, EntityStatus status, String password, String address, String county) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -79,8 +74,6 @@ public class CustomerEntity {
         this.password = password;
         this.address = address;
         this.county = county;
-        this.createdBy = createdBy;
-        this.modifiedBy = modifiedBy;
     }
 
 

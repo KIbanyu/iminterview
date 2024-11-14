@@ -1,0 +1,34 @@
+server:
+    port: 1003
+
+spring:
+    application:
+        name: transaction-service
+    jpa:
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+            ddl-auto: update
+        show-sql: true
+        generate-ddl: false
+    datasource:
+        username: user
+        password: password
+        url: jdbc:postgresql://localhost:5433/db_im_interview
+
+    cloud:
+        openfeign:
+            client:
+                config:
+                    default:
+                        logger-level: FULL
+                    account-service:
+                        url: http://localhost:1002/api/v1/accounts
+    kafka:
+        producer:
+            bootstrap-servers: localhost:9092
+            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+            value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+

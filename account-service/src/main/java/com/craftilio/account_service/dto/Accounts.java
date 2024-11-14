@@ -45,12 +45,6 @@ public class Accounts {
     @Column(name = "MODIFIED_ON")
     private Date modifiedOn;
 
-    @Column(name = "CREATED_BY")
-    private String createdBy ;
-
-    @Column(name = "MODIFIED_BY")
-    private String modifiedBy;
-
     @Column(name = "COMMENT")
     private String comment;
 }

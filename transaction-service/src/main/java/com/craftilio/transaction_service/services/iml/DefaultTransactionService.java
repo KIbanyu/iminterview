@@ -92,20 +92,19 @@ public class DefaultTransactionService implements TransactionService {
     private ResponseEntity<?> processTransfer(TransactionRequest request) {
         try {
 
+            //Get account to transfer from
             ResponseEntity<?> getAccountResponse = getAccount(getAccountDetails(request.getAccount()));
-
             if (getAccountResponse.getStatusCode() != OK) {
                 return getAccountResponse;
             }
             Account fromAccount = getAccountDetails(request.getAccount()).getAccount();
 
-            getAccountResponse = getAccount(getAccountDetails(request.getToAccount()));
-
-            if (getAccountResponse.getStatusCode() != OK) {
-                return getAccountResponse;
+            ResponseEntity<?> toAccountResponse = getAccount(getAccountDetails(request.getToAccount()));
+            if (toAccountResponse.getStatusCode() != OK) {
+                return toAccountResponse;
             }
 
-            Account toAccount = getAccountDetails(request.getAccount()).getAccount();
+            Account toAccount = getAccountDetails(request.getToAccount()).getAccount();
 
             if (fromAccount == null || toAccount == null) {
                 return createErrorResponse("One or both accounts not found", NOT_FOUND);
@@ -115,11 +114,12 @@ public class DefaultTransactionService implements TransactionService {
                 return createErrorResponse("Insufficient balance", BAD_REQUEST);
             }
 
-
             UpdateAccountRequest updateAccountRequest = new UpdateAccountRequest();
             List<Account> accounts = new ArrayList<>();
-            accounts.add(updateAccountBalance(fromAccount, TransactionType.TRANSFER, request.getAmount()));
-            accounts.add(updateAccountBalance(toAccount, TransactionType.TRANSFER, request.getAmount().negate()));
+
+            accounts.add(updateAccountBalance(toAccount, TransactionType.TRANSFER, request.getAmount()));
+            accounts.add(updateAccountBalance(fromAccount, TransactionType.TRANSFER, request.getAmount().negate()));
+
             updateAccountRequest.setAccountUpdates(accounts);
             ResponseEntity<?> updateAccount =  accountService.updateAccount(updateAccountRequest);
             if (updateAccount.getStatusCode() != OK) {
@@ -127,6 +127,17 @@ public class DefaultTransactionService implements TransactionService {
             }
 
             processTransactionEntity(request, TransactionType.TRANSFER);
+
+            //Send sms to customer for the account from
+            String message = "You have transferred KSH " + request.getAmount() + " from your account " +
+                    maskAccountNumber(fromAccount.getAccountNumber()) + " to account " + maskAccountNumber(toAccount.getAccountNumber()) +  " your new balance is KSH "  + fromAccount.getBalance();
+            kafkaService.sendToTransactionalTopic(Notification.builder().type("SMS").message(message).recipient("").build());
+
+            //Send sms to recipient
+            message = "You have received KSH " + request.getAmount() + " from account " + maskAccountNumber(toAccount.getAccountNumber()) +  " your new balance is KSH "  + toAccount.getBalance();
+            kafkaService.sendToTransactionalTopic(Notification.builder().type("SMS").message(message).recipient("").build());
+
+
             return createSuccessResponse("Transfer successful");
 
         } catch (Exception e) {
