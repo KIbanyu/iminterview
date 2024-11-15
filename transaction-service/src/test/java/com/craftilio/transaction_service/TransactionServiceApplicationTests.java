@@ -48,10 +48,10 @@ class TransactionServiceApplicationTests {
 
 	@BeforeEach
 	void setUp() {
-		account = Account.builder().accountNumber("1234").balance(BigDecimal.valueOf(1000)).status("ACTIVE").build();
+		account = Account.builder().accountNumber("02345678").balance(BigDecimal.valueOf(1000)).status("ACTIVE").build();
 
 		transactionRequest = new TransactionRequest();
-		transactionRequest.setAccount("12345");
+		transactionRequest.setAccount("12345678");
 		transactionRequest.setAmount(BigDecimal.valueOf(500));
 		transactionRequest.setNarration("Test transaction");
 		updateAccountRequest = new UpdateAccountRequest();
@@ -68,7 +68,7 @@ class TransactionServiceApplicationTests {
 		AccountDetails accountDetails = AccountDetails.builder().account(account).status(200).build();
 		accountDetails.setAccount(account);
 		accountDetails.setStatus(200);
-		when(accountService.getAccountDetails(eq("12345"))).thenReturn(accountDetails);
+		when(accountService.getAccountDetails(eq("12345678"))).thenReturn(accountDetails);
 		when(accountService.updateAccount(any(UpdateAccountRequest.class)))
 				.thenReturn(new ResponseEntity<>(HttpStatus.OK));
 		ResponseEntity<?> response = transactionService.deposit(transactionRequest);
@@ -82,7 +82,7 @@ class TransactionServiceApplicationTests {
 		AccountDetails accountDetails = AccountDetails.builder().account(account).status(200).build();
 		accountDetails.setAccount(account);
 		accountDetails.setStatus(200);
-		when(accountService.getAccountDetails(eq("12345"))).thenReturn(accountDetails);
+		when(accountService.getAccountDetails(eq("12345678"))).thenReturn(accountDetails);
 		when(accountService.updateAccount(any(UpdateAccountRequest.class)))
 				.thenReturn(new ResponseEntity<>(HttpStatus.OK));
 		ResponseEntity<?> response = transactionService.withdraw(transactionRequest);
@@ -94,11 +94,11 @@ class TransactionServiceApplicationTests {
 
 	@Test
 	void testWithdrawInsufficientBalance() {
-		transactionRequest.setAmount(BigDecimal.valueOf(1500));  // Higher than balance
+		transactionRequest.setAmount(BigDecimal.valueOf(1500));
 		AccountDetails accountDetails = AccountDetails.builder().account(account).status(200).build();
 		accountDetails.setAccount(account);
 		accountDetails.setStatus(200);
-		when(accountService.getAccountDetails(eq("12345"))).thenReturn(accountDetails);
+		when(accountService.getAccountDetails(eq("12345678"))).thenReturn(accountDetails);
 		ResponseEntity<?> response = transactionService.withdraw(transactionRequest);
 		verify(accountService, never()).updateAccount(any(UpdateAccountRequest.class));
 		assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -111,8 +111,8 @@ class TransactionServiceApplicationTests {
 		transactionRequest.setAmount(BigDecimal.valueOf(1500));
 		AccountDetails fromAccountDetails = AccountDetails.builder().status(200).account(account).status(200).build();
 		AccountDetails toAccountDetails = AccountDetails.builder().status(400).account(Account.builder().build()).status(200).build();
-		when(accountService.getAccountDetails(eq("12345"))).thenReturn(fromAccountDetails);
-		when(accountService.getAccountDetails(eq("67890"))).thenReturn(toAccountDetails);
+		when(accountService.getAccountDetails(eq("12345678"))).thenReturn(fromAccountDetails);
+		when(accountService.getAccountDetails(eq("67890895"))).thenReturn(toAccountDetails);
 		ResponseEntity<?> response = transactionService.transfer(transactionRequest);
 		verify(accountService, never()).updateAccount(any(UpdateAccountRequest.class));
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());

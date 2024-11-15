@@ -1,5 +1,5 @@
 server:
-    port: 1003
+    port: 8083
 
 spring:
     application:
@@ -13,9 +13,9 @@ spring:
         show-sql: true
         generate-ddl: false
     datasource:
-        username: user
-        password: password
-        url: jdbc:postgresql://localhost:5433/db_im_interview
+        username: postgres
+        password: postgres
+        url: jdbc:postgresql://localhost:5433/im_database
 
     cloud:
         openfeign:
@@ -30,5 +30,11 @@ spring:
             bootstrap-servers: localhost:9092
             key-serializer: org.apache.kafka.common.serialization.StringSerializer
             value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+
 
 

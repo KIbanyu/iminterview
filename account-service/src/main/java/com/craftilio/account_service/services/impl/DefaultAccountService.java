@@ -60,7 +60,6 @@ public class DefaultAccountService implements AccountService {
             accountRepo.save(accounts);
             response.put("status", HttpStatus.OK.value());
             response.put("message", "Account created");
-
             String message  = "Dear customer,"
                     + " you have successfully open a new account, your account details are " +
                     " ACCOUNT NAME " + customerDetails.getData().getFirstName() + " " +  customerDetails.getData().getLastName()
@@ -126,7 +125,7 @@ public class DefaultAccountService implements AccountService {
             if (account == null) {
                 response.put("status", NOT_FOUND.value());
                 response.put("message", "Account not found");
-                return new ResponseEntity<>(response, OK);
+                return new ResponseEntity<>(response, NOT_FOUND);
             }
 
             response.put("status", OK.value());
@@ -139,7 +138,7 @@ public class DefaultAccountService implements AccountService {
             log.error("GETTING_ACCOUNT_EXCEPTION, msg= an error while occurred getting account ", e);
             response.put("status", INTERNAL_SERVER_ERROR.value());
             response.put("message", "Exception occurred while occurred getting account ");
-            return new ResponseEntity<>(response, OK);
+            return new ResponseEntity<>(response, INTERNAL_SERVER_ERROR);
         }
 
     }

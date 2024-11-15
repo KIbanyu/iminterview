@@ -2,7 +2,7 @@ FROM openjdk:17-jdk-slim
 COPY . /app
 WORKDIR /app
 
-RUN ./mvnw clean package -DskipTests
+RUN ./mvnw clean package
 
 COPY target/notification-service-0.0.1.jar /notifcation-service.jar
 

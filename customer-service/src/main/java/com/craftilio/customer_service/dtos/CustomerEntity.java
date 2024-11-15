@@ -5,15 +5,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Data
 @Table(name = "customers")
 @NoArgsConstructor
-public class CustomerEntity {
+public class CustomerEntity implements UserDetails {
 
     @Id
     @Column(name = "ID")
@@ -77,5 +78,14 @@ public class CustomerEntity {
     }
 
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList();
+    }
 
+    @Override
+    public String getUsername() {
+        return null;
+
+}
 }

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5eb3f2f7-db98-417d-a6d9-dbdcbc7dc273" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/customer-service/src/test/java/com/craftilio/customer_service/CustomerServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/src/main/java/com/craftilio/account_service/services/impl/DefaultAccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/src/main/java/com/craftilio/account_service/services/impl/DefaultAccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/account-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/account-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customer-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/customer-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customer-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/customer-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customer-service/src/test/java/com/craftilio/customer_service/CustomerServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__cluster_metadata-0/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__cluster_metadata-0/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__cluster_metadata-0/00000000000000000000.log" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__cluster_metadata-0/00000000000000000000.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__cluster_metadata-0/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__cluster_metadata-0/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-0/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-0/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-0/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-0/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-1/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-1/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-1/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-1/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-10/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-10/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-10/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-10/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-11/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-11/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-11/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-11/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-12/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-12/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-12/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-12/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-13/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-13/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-13/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-13/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-14/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-14/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-14/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-14/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-15/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-15/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-15/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-15/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-16/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-16/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-16/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-16/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-17/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-17/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-17/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-17/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-18/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-18/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-18/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-18/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-19/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-19/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-19/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-19/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-2/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-2/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-2/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-2/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-20/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-20/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-20/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-20/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-21/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-21/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-21/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-21/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-22/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-22/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-22/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-22/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-23/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-23/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-23/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-23/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-24/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-24/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-24/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-24/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-25/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-25/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-25/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-25/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-26/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-26/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-26/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-26/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-27/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-27/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-27/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-27/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-28/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-28/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-28/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-28/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-29/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-29/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-29/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-29/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-3/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-3/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-3/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-3/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-30/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-30/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-30/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-30/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-31/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-31/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-31/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-31/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-32/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-32/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-32/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-32/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-33/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-33/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-33/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-33/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-34/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-34/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-34/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-34/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-35/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-35/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-35/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-35/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-36/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-36/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-36/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-36/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-37/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-37/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-37/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-37/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-38/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-38/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-38/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-38/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-39/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-39/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-39/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-39/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-4/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-4/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-4/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-4/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-40/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-40/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-40/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-40/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-41/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-41/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-41/00000000000000000000.log" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-41/00000000000000000000.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-41/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-41/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-42/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-42/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-42/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-42/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-43/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-43/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-43/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-43/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-44/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-44/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-44/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-44/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-45/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-45/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-45/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-45/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-46/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-46/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-46/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-46/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-47/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-47/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-47/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-47/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-48/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-48/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-48/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-48/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-49/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-49/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-49/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-49/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-5/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-5/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-5/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-5/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-6/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-6/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-6/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-6/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-7/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-7/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-7/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-7/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-8/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-8/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-8/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-8/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-9/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-9/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-9/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/__consumer_offsets-9/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/notification-topic-0/00000000000000000000.index" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/notification-topic-0/00000000000000000000.index" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/notification-topic-0/00000000000000000000.log" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/notification-topic-0/00000000000000000000.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/notification-topic-0/00000000000000000000.timeindex" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/notification-topic-0/00000000000000000000.timeindex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/recovery-point-offset-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/recovery-point-offset-checkpoint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_data/kafka/data/replication-offset-checkpoint" beforeDir="false" afterPath="$PROJECT_DIR$/kafka_data/kafka/data/replication-offset-checkpoint" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notification-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transaction-service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/transaction-service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transaction-service/src/test/java/com/craftilio/transaction_service/TransactionServiceApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/transaction-service/src/test/java/com/craftilio/transaction_service/TransactionServiceApplicationTests.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 8
+}]]></component>
+  <component name="ProjectId" id="2osKLGOzrbdrmQm8PCtDpXpWzqa" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/martin.kibanyu/Desktop/EZRA_DEV/PROJECTS/iminterview",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5eb3f2f7-db98-417d-a6d9-dbdcbc7dc273" name="Changes" comment="" />
+      <created>1731652785554</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1731652785554</updated>
+      <workItem from="1731652786763" duration="2000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

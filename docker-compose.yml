@@ -1,72 +1,98 @@
 version: '3'
 services:
 
-  # customer-service:
-  #   image: customer-service:latest
-  #   build:
-  #     context: ./customer-service
-  #   ports:
-  #     - "8081:8080"
-  #   networks:
-  #     - im-network
-
-  account-service:
-    image: account-service:latest
-    build:
-      context: ./account-service
+  postgresql:
+    image: postgres:15
+    container_name: im_database
+    expose:
+      - "5433"
     ports:
-      - "8082:8082"
-    networks:
-      - im-network
+      - "5433:5433"
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=im_database
+      - POSTGRES_HOST=5433
+    command: -p 5433
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    networks: [ "im" ]
+
+  kafka:
+    image: docker.io/bitnami/kafka:3.5.0
+    ports:
+      - "9092:9092"
+      - "29092:29092"
+      - "9093:9093"
+    volumes:
+      - "./kafka_data:/bitnami"
+    restart: always
+    environment:
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:29092,CONTROLLER://:9093,EXTERNAL://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:29092,EXTERNAL://localhost:9092
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+    networks: [ "im" ]   
+
+  discovery-service:
+    container_name: discovery-service
+    image: discovery-service:latest
+    expose:
+      - "8761"
+    ports:
+      - "8762:8761"
+    networks: [ "im" ]
+
+  # customer-service:
+  #   container_name: customer-service
+  #   build:
+  #     context: ./account-service
+  #   image: customer-service:latest
+  #   environment:
+  #     - EUREKA_SERVER=http://discovery-service:8761/eureka
+  #     - PORT=8081
+  #   ports:
+  #     - "8081:8081"
+  #   depends_on:
+  #     - discovery-service
+  #   networks: [ "im" ]
+
+  # account-service:
+  #   container_name: account-service
+  #   image: account-service:latest
+  #   environment:
+  #     - EUREKA_SERVER=http://discovery-service:8761/eureka
+  #     - PORT=8082
+  #   ports:
+  #     - "8082:8082"
+  #   depends_on:
+  #     - discovery-service
+  #   networks: [ "im" ]
 
   # transaction-service:
+  #   container_name: transaction-service
   #   image: transaction-service:latest
-  #   build:
-  #     context: ./transaction-service
+  #   environment:
+  #     - EUREKA_SERVER=http://discovery-service:8761/eureka
+  #     - PORT=8083
   #   ports:
   #     - "8083:8083"
-  #   networks:
-  #     - im-network
+  #   depends_on:
+  #     - discovery-service
+  #   networks: ["im"]   
+
 
   # notification-service:
+  #   container_name: notification-service
   #   image: notification-service:latest
-  #   build:
-  #     context: ./notification-service
   #   ports:
   #     - "8084:8084"
-  #   networks:
-  #     - im-network
+  #   networks: ["im"] 
 
-  # db:
-  #   image: postgres:15
-  #   environment:
-  #     POSTGRES_USER: user
-  #     POSTGRES_PASSWORD: password
-  #     POSTGRES_DB: db_im_interview
-  #   ports:
-  #     - "5433:5432"
-  #   networks:
-  #     - im-network
-
-  # kafka:
-  #   image: docker.io/bitnami/kafka:3.5.0
-  #   ports:
-  #     - "9092:9092"
-  #     - "29092:29092"
-  #     - "9093:9093"
-  #   volumes:
-  #     - "./kafka_data:/bitnami"
-  #   restart: always
-  #   environment:
-  #     - KAFKA_CFG_NODE_ID=1
-  #     - KAFKA_CFG_PROCESS_ROLES=controller,broker
-  #     - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
-  #     - ALLOW_PLAINTEXT_LISTENER=yes
-  #     - KAFKA_CFG_LISTENERS=PLAINTEXT://:29092,CONTROLLER://:9093,EXTERNAL://:9092
-  #     - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:29092,EXTERNAL://localhost:9092
-  #     - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
-  #   networks:
-  #     - im-network      
 networks:
-  im-network:
+  im:
     driver: bridge
