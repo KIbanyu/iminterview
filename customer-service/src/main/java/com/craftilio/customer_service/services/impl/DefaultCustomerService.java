@@ -1,6 +1,5 @@
 package com.craftilio.customer_service.services.impl;
 
-import com.craftilio.customer_service.configs.TokenGenerator;
 import com.craftilio.customer_service.dtos.CustomerEntity;
 import com.craftilio.customer_service.enums.EntityStatus;
 import com.craftilio.customer_service.models.CreateCustomerRequest;
@@ -9,12 +8,13 @@ import com.craftilio.customer_service.models.LoginRequest;
 import com.craftilio.customer_service.models.UpdateCustomerDetailsRequest;
 import com.craftilio.customer_service.repos.CustomerRepo;
 import com.craftilio.customer_service.services.CustomerService;
+import com.craftilio.customer_service.utils.ThreeDes;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -26,7 +26,7 @@ import java.util.*;
 public  class DefaultCustomerService implements CustomerService {
     private final CustomerRepo customerRepo;
     private HashMap<String, Object> response;
-    private final TokenGenerator tokenGenerator;
+    private final ThreeDes threeDes;
 
 
 
@@ -52,7 +52,7 @@ public  class DefaultCustomerService implements CustomerService {
             CustomerEntity customerEntity = new CustomerEntity(
                     request.getFirstName(), request.getLastName(), request.getEmail(),
                     request.getGender(), request.getPhoneNumber(), request.getIdNumber(),
-                    EntityStatus.ACTIVE, request.getPassword(), request.getPhysicalAddress(),
+                    EntityStatus.ACTIVE, threeDes.encrypt(request.getPassword()), request.getPhysicalAddress(),
                     request.getCounty());
             customerEntity.setModifiedOn(new Date());
             customerRepo.save(customerEntity);
@@ -73,12 +73,10 @@ public  class DefaultCustomerService implements CustomerService {
     public ResponseEntity<?> login(LoginRequest request) {
         Map<String, Object> response = new HashMap<>();
         try {
-            Optional<CustomerEntity> customerEntity = customerRepo.findByEmailAndPassword(request.getEmail(), request.getPassword());
+            Optional<CustomerEntity> customerEntity = customerRepo.findByEmailAndPassword(request.getEmail(), threeDes.encrypt(request.getPassword()));
             if (customerEntity.isPresent()) {
-                Authentication authentication = UsernamePasswordAuthenticationToken.authenticated(customerEntity, request.getPassword(), Collections.EMPTY_LIST);
                 response.put("status", HttpStatus.OK.value());
                 response.put("message", "Successfully logged in");
-                response.put("token", tokenGenerator.createToken(authentication));
                 response.put("data", customerEntity.get());
                 return new ResponseEntity<>(response, HttpStatus.OK);
             }

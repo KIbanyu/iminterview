@@ -21,10 +21,10 @@ services:
 
   kafka:
     image: docker.io/bitnami/kafka:3.5.0
+    expose:
+      - "9092"
     ports:
       - "9092:9092"
-      - "29092:29092"
-      - "9093:9093"
     volumes:
       - "./kafka_data:/bitnami"
     restart: always
@@ -36,62 +36,87 @@ services:
       - KAFKA_CFG_LISTENERS=PLAINTEXT://:29092,CONTROLLER://:9093,EXTERNAL://:9092
       - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:29092,EXTERNAL://localhost:9092
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
-    networks: [ "im" ]   
+      - KAFKA_CFG_MESSAGE_MAX_BYTES=200000000
+      - KAFKA_CFG_REPLICA_FETCH_MAX_BYTES=200000000
+    networks: [ "im" ]
+
+  keycloak:
+   image: quay.io/keycloak/keycloak:22.0.1
+   container_name: keycloak
+   environment:
+     KEYCLOAK_ADMIN: admin
+     KEYCLOAK_ADMIN_PASSWORD: admin
+   ports:
+     - "8080:8080"
+   command: start-dev
+   networks: [ "im" ]
 
   discovery-service:
     container_name: discovery-service
     image: discovery-service:latest
     expose:
-      - "8761"
+      - "9090"
     ports:
-      - "8762:8761"
+      - "9090:9090"
     networks: [ "im" ]
 
-  # customer-service:
-  #   container_name: customer-service
-  #   build:
-  #     context: ./account-service
-  #   image: customer-service:latest
-  #   environment:
-  #     - EUREKA_SERVER=http://discovery-service:8761/eureka
-  #     - PORT=8081
-  #   ports:
-  #     - "8081:8081"
-  #   depends_on:
-  #     - discovery-service
-  #   networks: [ "im" ]
+  customer-service:
+    container_name: customer-service
+    build:
+      context: ./account-service
+      dockerfile: Dockerfile
+      args:
+        SKIP_TESTS: "true"
+    image: customer-service:latest
+    environment:
+      - EUREKA_SERVER=http://discovery-service:8761/eureka
+      - PORT=8081
+    expose:
+      - "8081"  
+    ports:
+      - "8081:8081"
+    depends_on:
+      - discovery-service
+    networks: [ "im" ]
 
-  # account-service:
-  #   container_name: account-service
-  #   image: account-service:latest
-  #   environment:
-  #     - EUREKA_SERVER=http://discovery-service:8761/eureka
-  #     - PORT=8082
-  #   ports:
-  #     - "8082:8082"
-  #   depends_on:
-  #     - discovery-service
-  #   networks: [ "im" ]
+  account-service:
+    container_name: account-service
+    image: account-service:latest
+    environment:
+      - EUREKA_SERVER=http://discovery-service:8761/eureka
+      - PORT=8082
+    ports:
+      - "8082:8082"
+    depends_on:
+      - discovery-service
+    networks: [ "im" ]
 
-  # transaction-service:
-  #   container_name: transaction-service
-  #   image: transaction-service:latest
-  #   environment:
-  #     - EUREKA_SERVER=http://discovery-service:8761/eureka
-  #     - PORT=8083
-  #   ports:
-  #     - "8083:8083"
-  #   depends_on:
-  #     - discovery-service
-  #   networks: ["im"]   
+  transaction-service:
+    build:
+      context: ./transaction-service
+      dockerfile: Dockerfile
+      args:
+        SKIP_TESTS: "true"
+    container_name: transaction-service
+    image: transaction-service:latest
+    environment:
+      - EUREKA_SERVER=http://discovery-service:8761/eureka
+      - PORT=8083
+    ports:
+      - "8083:8083"
+    depends_on:
+      - discovery-service
+    networks: ["im"] 
 
 
-  # notification-service:
-  #   container_name: notification-service
-  #   image: notification-service:latest
-  #   ports:
-  #     - "8084:8084"
-  #   networks: ["im"] 
+  notification-service:
+    container_name: notification-service
+    image: notification-service:latest
+    environment:
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=kafka:29092
+    ports:
+      - "8084:8084"
+    networks: ["im"] 
 
 networks:
   im:

@@ -2,10 +2,10 @@ spring:
     application:
         name: notification-service
 server:
-    port: 1004
+    port: 8084
     kafka:
         producer:
-            bootstrap-servers: localhost:9092
+            bootstrap-servers: kafka:9092
             key-serializer: org.apache.kafka.common.serialization.StringSerializer
             value-serializer: org.apache.kafka.common.serialization.StringSerializer
 

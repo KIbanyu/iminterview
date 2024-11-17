@@ -6,7 +6,6 @@ RUN ./mvnw clean package -DskipTests
 
 COPY target/discovery-service-0.0.1.jar /discovery-service.jar
 
-EXPOSE 8761
+EXPOSE 9090
 
 CMD ["java", "-jar", "/discovery-service.jar"]
-
